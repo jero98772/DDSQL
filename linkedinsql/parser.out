@@ -1,0 +1,115 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> INSERT DATA SEMICOLON
+Rule 2     statement -> PICK LAST SEMICOLON
+Rule 3     statement -> PICK RANGE DATE DATE SEMICOLON
+
+Terminals, with rules where they appear
+
+DATA                 : 1
+DATE                 : 3 3
+INSERT               : 1
+LAST                 : 2
+PICK                 : 2 3
+RANGE                : 3
+SEMICOLON            : 1 2 3
+error                : 
+
+Nonterminals, with rules where they appear
+
+statement            : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . INSERT DATA SEMICOLON
+    (2) statement -> . PICK LAST SEMICOLON
+    (3) statement -> . PICK RANGE DATE DATE SEMICOLON
+
+    INSERT          shift and go to state 2
+    PICK            shift and go to state 3
+
+    statement                      shift and go to state 1
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> INSERT . DATA SEMICOLON
+
+    DATA            shift and go to state 4
+
+
+state 3
+
+    (2) statement -> PICK . LAST SEMICOLON
+    (3) statement -> PICK . RANGE DATE DATE SEMICOLON
+
+    LAST            shift and go to state 5
+    RANGE           shift and go to state 6
+
+
+state 4
+
+    (1) statement -> INSERT DATA . SEMICOLON
+
+    SEMICOLON       shift and go to state 7
+
+
+state 5
+
+    (2) statement -> PICK LAST . SEMICOLON
+
+    SEMICOLON       shift and go to state 8
+
+
+state 6
+
+    (3) statement -> PICK RANGE . DATE DATE SEMICOLON
+
+    DATE            shift and go to state 9
+
+
+state 7
+
+    (1) statement -> INSERT DATA SEMICOLON .
+
+    $end            reduce using rule 1 (statement -> INSERT DATA SEMICOLON .)
+
+
+state 8
+
+    (2) statement -> PICK LAST SEMICOLON .
+
+    $end            reduce using rule 2 (statement -> PICK LAST SEMICOLON .)
+
+
+state 9
+
+    (3) statement -> PICK RANGE DATE . DATE SEMICOLON
+
+    DATE            shift and go to state 10
+
+
+state 10
+
+    (3) statement -> PICK RANGE DATE DATE . SEMICOLON
+
+    SEMICOLON       shift and go to state 11
+
+
+state 11
+
+    (3) statement -> PICK RANGE DATE DATE SEMICOLON .
+
+    $end            reduce using rule 3 (statement -> PICK RANGE DATE DATE SEMICOLON .)
+
